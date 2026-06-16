@@ -1,0 +1,3 @@
+# GET random email address
+GET https://flynn.boolean.careers/exercises/api/random/mail
+# RESPONSE { "success": true, "response": "larson.adrian@gmail.com" }
