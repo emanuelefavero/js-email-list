@@ -24,4 +24,4 @@ Using the Boolean API, generate 10 email addresses and print them on the page in
 - Avoided a global email array: the list is rendered from the resolved promises.
 - Added a reload button that is hidden on first load and disabled during later reloads.
 - Used minimal custom CSS with a dark monospace style, stable loading layout, and no Bootstrap.
-- Added a loader spinner while waiting for the API response
+- Added a skeleton loader while waiting for the API response.
