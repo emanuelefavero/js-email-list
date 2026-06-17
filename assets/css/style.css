@@ -106,46 +106,6 @@ body {
   border-radius: 2px;
   background: var(--line);
   animation: pulse 1.2s ease-in-out infinite;
-
-  &:nth-child(1) {
-    --size: 24ch;
-  }
-
-  &:nth-child(2) {
-    --size: 18ch;
-  }
-
-  &:nth-child(3) {
-    --size: 29ch;
-  }
-
-  &:nth-child(4) {
-    --size: 21ch;
-  }
-
-  &:nth-child(5) {
-    --size: 27ch;
-  }
-
-  &:nth-child(6) {
-    --size: 16ch;
-  }
-
-  &:nth-child(7) {
-    --size: 31ch;
-  }
-
-  &:nth-child(8) {
-    --size: 23ch;
-  }
-
-  &:nth-child(9) {
-    --size: 19ch;
-  }
-
-  &:nth-child(10) {
-    --size: 26ch;
-  }
 }
 
 /* UTILS */

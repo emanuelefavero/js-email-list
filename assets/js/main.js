@@ -5,6 +5,7 @@ const reloadButton = document.getElementById('reload-button');
 // CONSTANTS
 const API_URL = 'https://flynn.boolean.careers/exercises/api/random/mail';
 const MAX_EMAILS = 10;
+const SKELETON_WIDTHS = [18, 20, 22, 24, 26, 28, 30];
 
 // STATE
 let isFirstLoad = true;
@@ -25,7 +26,16 @@ const getRandomEmails = (total) => {
 
 // TEMPLATES
 const getEmailTemplate = (email) => /*html*/ `<li>${email}</li>`;
-const getSkeletonTemplate = () => /*html*/ `<li class="skeleton"></li>`;
+const getRandomSkeletonWidth = () => {
+  const randomIndex = Math.floor(Math.random() * SKELETON_WIDTHS.length);
+  return SKELETON_WIDTHS[randomIndex];
+};
+
+const getSkeletonTemplate = () => {
+  const width = getRandomSkeletonWidth();
+  return /*html*/ `<li class="skeleton" style="--size: ${width}ch"></li>`;
+};
+
 const getErrorTemplate = () => /*html*/ `<li>Unable to load emails</li>`;
 
 const getEmailListTemplate = (emails) => {
