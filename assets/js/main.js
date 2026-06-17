@@ -59,8 +59,8 @@ const renderError = (element) => {
   element.innerHTML = getErrorTemplate();
 };
 
-const showReloadButton = () => reloadButton.classList.remove('hidden');
-const hideReloadButton = () => reloadButton.classList.add('hidden');
+const showReloadButton = () => reloadButton.classList.remove('invisible');
+const hideReloadButton = () => reloadButton.classList.add('invisible');
 const enableReloadButton = () => (reloadButton.disabled = false);
 const disableReloadButton = () => (reloadButton.disabled = true);
 
