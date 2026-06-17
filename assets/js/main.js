@@ -6,6 +6,9 @@ const reloadButton = document.getElementById('reload-button');
 const API_URL = 'https://flynn.boolean.careers/exercises/api/random/mail';
 const MAX_EMAILS = 10;
 
+// STATE
+let isFirstLoad = true;
+
 // API
 const getRandomEmail = () => {
   return axios.get(API_URL).then((res) => {
@@ -49,8 +52,6 @@ const disableReloadButton = () => (reloadButton.disabled = true);
 
 // APP (Controller)
 const loadEmails = () => {
-  const isFirstLoad = reloadButton.classList.contains('hidden');
-
   renderLoader(output);
   disableReloadButton();
 
@@ -59,12 +60,13 @@ const loadEmails = () => {
   getRandomEmails(MAX_EMAILS)
     .then((emails) => {
       renderEmailList(output, emails);
-      enableReloadButton();
-      showReloadButton();
     })
     .catch((error) => {
       console.error(error);
       renderError(output);
+    })
+    .finally(() => {
+      isFirstLoad = false;
       enableReloadButton();
       showReloadButton();
     });
