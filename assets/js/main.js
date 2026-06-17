@@ -44,20 +44,28 @@ const renderError = (element) => {
 
 const showReloadButton = () => reloadButton.classList.remove('hidden');
 const hideReloadButton = () => reloadButton.classList.add('hidden');
+const enableReloadButton = () => (reloadButton.disabled = false);
+const disableReloadButton = () => (reloadButton.disabled = true);
 
 // APP (Controller)
 const loadEmails = () => {
+  const isFirstLoad = reloadButton.classList.contains('hidden');
+
   renderLoader(output);
-  hideReloadButton();
+  disableReloadButton();
+
+  if (isFirstLoad) hideReloadButton();
 
   getRandomEmails(MAX_EMAILS)
     .then((emails) => {
       renderEmailList(output, emails);
+      enableReloadButton();
       showReloadButton();
     })
     .catch((error) => {
       console.error(error);
       renderError(output);
+      enableReloadButton();
       showReloadButton();
     });
 };
