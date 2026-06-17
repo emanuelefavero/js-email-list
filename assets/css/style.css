@@ -1,9 +1,9 @@
 /* TOKENS */
 :root {
-  --bg: #11100f;
-  --panel: #171615;
-  --text: #f3f0ea;
+  --background: #11100f;
+  --foreground: #f3f0ea;
   --muted: #8f8b85;
+  --card: #171615;
   --line: #2d2a27;
 }
 
@@ -15,18 +15,19 @@
 }
 
 body {
+  min-width: 300px;
   min-height: 100vh;
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--background);
+  color: var(--foreground);
   font-family: SFMono-Regular, Consolas, 'Liberation Mono', monospace;
 }
 
 ::selection {
-  background: var(--text);
-  color: var(--bg);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 /* COMPONENTS */
@@ -34,7 +35,7 @@ body {
   width: min(100%, 38rem);
   padding: 1.5rem;
   border: 1px solid var(--line);
-  background: var(--panel);
+  background: var(--card);
 
   p {
     margin-bottom: 0.75rem;
@@ -51,33 +52,31 @@ body {
 
 .email-list {
   display: grid;
+  grid-template-rows: repeat(10, 1.5em);
   gap: 0.45rem;
-  min-height: 21rem;
   margin-bottom: 1.5rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--line);
   list-style: none;
 
-  li:not(.loader) {
+  li {
     min-height: 1.5em;
-    color: var(--muted);
     font-size: 0.9375rem;
     line-height: 1.5;
-    overflow-wrap: anywhere;
-    animation: fade-in 0.35s ease both;
   }
 
-  &:has(.loader) {
-    place-items: center;
-    padding-top: 0;
+  li:not(.skeleton) {
+    color: var(--muted);
+    overflow-wrap: anywhere;
+    animation: fade-in 0.35s ease both;
   }
 }
 
 .button {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--text);
+  border: 1px solid var(--foreground);
   background: transparent;
-  color: var(--text);
+  color: var(--foreground);
   font: inherit;
   cursor: pointer;
   transition:
@@ -87,8 +86,8 @@ body {
 
   &:not(:disabled):hover,
   &:not(:disabled):focus-visible {
-    background: var(--text);
-    color: var(--bg);
+    background: var(--foreground);
+    color: var(--background);
   }
 
   &:focus-visible {
@@ -101,28 +100,63 @@ body {
   }
 }
 
-.loader {
-  width: 48px;
-  height: 48px;
-  display: inline-block;
-  box-sizing: border-box;
-  border: 5px solid var(--text);
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  animation: rotation 1s linear infinite;
+.skeleton {
+  width: min(var(--size), 95%);
+  height: 1.5em;
+  border-radius: 2px;
+  background: var(--line);
+  animation: pulse 1.2s ease-in-out infinite;
+
+  &:nth-child(1) {
+    --size: 24ch;
+  }
+
+  &:nth-child(2) {
+    --size: 18ch;
+  }
+
+  &:nth-child(3) {
+    --size: 29ch;
+  }
+
+  &:nth-child(4) {
+    --size: 21ch;
+  }
+
+  &:nth-child(5) {
+    --size: 27ch;
+  }
+
+  &:nth-child(6) {
+    --size: 16ch;
+  }
+
+  &:nth-child(7) {
+    --size: 31ch;
+  }
+
+  &:nth-child(8) {
+    --size: 23ch;
+  }
+
+  &:nth-child(9) {
+    --size: 19ch;
+  }
+
+  &:nth-child(10) {
+    --size: 26ch;
+  }
 }
 
+/* UTILS */
 .hidden {
   visibility: hidden;
 }
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
+/* ANIMATIONS */
+@keyframes pulse {
+  50% {
+    opacity: 0.4;
   }
 }
 

@@ -25,11 +25,15 @@ const getRandomEmails = (total) => {
 
 // TEMPLATES
 const getEmailTemplate = (email) => /*html*/ `<li>${email}</li>`;
-const getLoaderTemplate = () => /*html*/ `<li class="loader"></li>`;
+const getSkeletonTemplate = () => /*html*/ `<li class="skeleton"></li>`;
 const getErrorTemplate = () => /*html*/ `<li>Unable to load emails</li>`;
 
 const getEmailListTemplate = (emails) => {
   return emails.map(getEmailTemplate).join('');
+};
+
+const getSkeletonListTemplate = (total) => {
+  return Array.from({ length: total }, () => getSkeletonTemplate()).join('');
 };
 
 // RENDER
@@ -37,8 +41,8 @@ const renderEmailList = (element, emails) => {
   element.innerHTML = getEmailListTemplate(emails);
 };
 
-const renderLoader = (element) => {
-  element.innerHTML = getLoaderTemplate();
+const renderSkeletonList = (element, total) => {
+  element.innerHTML = getSkeletonListTemplate(total);
 };
 
 const renderError = (element) => {
@@ -52,7 +56,7 @@ const disableReloadButton = () => (reloadButton.disabled = true);
 
 // APP (Controller)
 const loadEmails = () => {
-  renderLoader(output);
+  renderSkeletonList(output, MAX_EMAILS);
   disableReloadButton();
 
   if (isFirstLoad) hideReloadButton();
