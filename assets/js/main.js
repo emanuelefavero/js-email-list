@@ -5,26 +5,43 @@ const output = document.getElementById('output');
 const API_URL = 'https://flynn.boolean.careers/exercises/api/random/mail';
 const MAX_EMAILS = 10;
 
+// API
+const getRandomEmail = () => {
+  return axios.get(API_URL).then((res) => {
+    const { success, response: email } = res.data;
+    if (!success) throw new Error('Email request failed');
+    return email;
+  });
+};
+
+const getRandomEmails = (total) => {
+  const requests = [];
+
+  for (let i = 0; i < total; i++) {
+    requests.push(getRandomEmail());
+  }
+
+  return Promise.all(requests);
+};
+
 // TEMPLATES
 const getEmailTemplate = (email) => /*html*/ `<li>${email}</li>`;
 
-const getEmailListTemplate = (emailList) => {
-  return emailList.map(getEmailTemplate).join('');
+const getEmailListTemplate = (emails) => {
+  return emails.map(getEmailTemplate).join('');
 };
 
-const emailList = [];
+// RENDER
+const renderEmailList = (element, emails) => {
+  element.innerHTML = getEmailListTemplate(emails);
+};
 
-for (let i = 0; i < MAX_EMAILS; i++) {
-  axios
-    .get(API_URL)
-    .then((response) => {
-      const { success, response: email } = response.data;
-
-      if (success) emailList.push(email);
-
-      if (emailList.length === MAX_EMAILS || i >= MAX_EMAILS - 1) {
-        output.innerHTML = getEmailListTemplate(emailList);
-      }
-    })
-    .catch((error) => console.error(`Request failed: ${error.message}`));
-}
+// INIT
+getRandomEmails(MAX_EMAILS)
+  .then((emails) => {
+    renderEmailList(output, emails);
+  })
+  .catch((error) => {
+    console.error(error);
+    output.innerHTML = /*html*/ `<li>Unable to load emails</li>`;
+  });
